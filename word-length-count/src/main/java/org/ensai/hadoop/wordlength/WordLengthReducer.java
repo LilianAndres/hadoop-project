@@ -12,9 +12,9 @@ public class WordLengthReducer extends MapReduceBase implements Reducer<IntWrita
     public void reduce(IntWritable key, Iterator<IntWritable> values, OutputCollector<IntWritable, IntWritable> output, Reporter reporter) throws IOException {
         int sum = 0;
         while (values.hasNext()) {
-            sum += values.next().get();
+            sum += values.next().get(); // count the number of values of the given key
         }
-        output.collect(key, new IntWritable(sum));
+        output.collect(key, new IntWritable(sum)); // output the key and its count
     }
 }
 

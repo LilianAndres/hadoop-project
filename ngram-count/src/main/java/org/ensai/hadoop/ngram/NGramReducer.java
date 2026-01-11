@@ -8,15 +8,12 @@ import java.util.Iterator;
 
 public class NGramReducer extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
 
-    private final IntWritable result = new IntWritable();
-
     @Override
     public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
         int sum = 0;
         while (values.hasNext()) {
-            sum += values.next().get();
+            sum += values.next().get(); // count the number of values of the given key
         }
-        result.set(sum);
-        output.collect(key, result);
+        output.collect(key, new IntWritable(sum)); // output the key and its count
     }
 }

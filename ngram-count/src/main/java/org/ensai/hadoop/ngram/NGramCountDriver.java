@@ -1,6 +1,8 @@
 package org.ensai.hadoop.ngram;
 
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.*;
 
 public class NGramCountDriver {
@@ -12,7 +14,7 @@ public class NGramCountDriver {
             System.exit(-1);
         }
 
-        int maxN = 5; // default value
+        int maxN = 5; // set a default value
 
         if (args.length >= 3) {
             maxN = Integer.parseInt(args[2]);
@@ -21,19 +23,17 @@ public class NGramCountDriver {
         JobConf conf = new JobConf(NGramCountDriver.class);
         conf.setJobName("NGramCount");
 
-        conf.setInt("ngram.max", maxN);
+        FileInputFormat.addInputPath(conf, new Path(args[0]));
+        FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+
+        conf.setInt("ngram.max", maxN); // set the maximum N-gram value in the job configuration
 
         conf.setMapperClass(NGramMapper.class);
         conf.setReducerClass(NGramReducer.class);
 
-        conf.setOutputKeyClass(org.apache.hadoop.io.Text.class);
-        conf.setOutputValueClass(org.apache.hadoop.io.IntWritable.class);
+        conf.setOutputKeyClass(Text.class);
+        conf.setOutputValueClass(IntWritable.class);
 
-        FileInputFormat.addInputPath(conf, new Path(args[0]));
-        FileOutputFormat.setOutputPath(conf, new Path(args[1]));
-
-        conf.setNumReduceTasks(1);
-
-        org.apache.hadoop.mapred.JobClient.runJob(conf);
+        JobClient.runJob(conf);
     }
 }

@@ -12,10 +12,9 @@ public class NextWordReducer extends MapReduceBase implements Reducer<Text, IntW
     public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
         int sum = 0;
         while (values.hasNext()) {
-            sum += values.next().get();
+            sum += values.next().get(); // count the number of values of the given key
         }
-
-        output.collect(key, new IntWritable(sum));
+        output.collect(key, new IntWritable(sum)); // output the key and its count
     }
 }
 

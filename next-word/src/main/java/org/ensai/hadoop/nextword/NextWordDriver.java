@@ -23,7 +23,7 @@ public class NextWordDriver {
         FileInputFormat.addInputPath(conf, new Path(input));
         FileOutputFormat.setOutputPath(conf, new Path(output));
 
-        conf.set("nextword.target", targetWord);
+        conf.set("nextword.target", targetWord); // set the target word in the job configuration
 
         conf.setMapperClass(NextWordMapper.class);
         conf.setReducerClass(NextWordReducer.class);

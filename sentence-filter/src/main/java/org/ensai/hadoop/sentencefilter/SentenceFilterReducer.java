@@ -12,7 +12,7 @@ public class SentenceFilterReducer extends MapReduceBase implements Reducer<Text
     public void reduce(Text key, Iterator<Text> values, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
         while (values.hasNext()) {
             Text sentence = values.next();
-            output.collect(key, sentence);
+            output.collect(key, sentence); // do nothing, emit the same pairs as the Mapper
         }
     }
 }

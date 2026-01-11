@@ -22,7 +22,7 @@ public class SentenceFilterDriver {
         FileInputFormat.addInputPath(conf, new Path(input));
         FileOutputFormat.setOutputPath(conf, new Path(output));
 
-        conf.set("sentencefilter.target", targetWord);
+        conf.set("sentencefilter.target", targetWord); // set the target word in the job configuration
 
         conf.setMapperClass(SentenceFilterMapper.class);
 
@@ -30,7 +30,7 @@ public class SentenceFilterDriver {
         // The best option would have been to make this Job as Mapper-only Job
         // conf.setNumReduceTasks(0);
 
-        conf.setReducerClass(SentenceFilterReducer.class); // keep it for the lab purpose
+        conf.setReducerClass(SentenceFilterReducer.class); // keep it only for the project purpose
 
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(Text.class);

@@ -13,7 +13,7 @@ public class NextWordMapper extends MapReduceBase implements Mapper<LongWritable
 
     @Override
     public void configure(JobConf conf) {
-        targetWord = conf.get("nextword.target").toLowerCase();
+        targetWord = conf.get("nextword.target").toLowerCase(); // get the target word from the job configuration
     }
 
     @Override
@@ -29,8 +29,8 @@ public class NextWordMapper extends MapReduceBase implements Mapper<LongWritable
 
         for (int i = 0; i < words.length - 1; i++) {
             if (words[i].equals(targetWord)) {
-                nextWordKey.set(words[i + 1]);
-                output.collect(nextWordKey, one);
+                nextWordKey.set(words[i + 1]); // set the key to the next word of the target word
+                output.collect(nextWordKey, one); // set the value to 1
             }
         }
     }

@@ -8,12 +8,12 @@ public class WordLengthDriver {
 
     public static void main(String[] args) throws Exception {
         if (args.length < 2) {
-            System.err.println("Usage: WordLengthDriver <input path> <output path>");
+            System.err.println("Usage: WordLengthDriver <input> <output>");
             System.exit(-1);
         }
 
         JobConf conf = new JobConf(WordLengthDriver.class);
-        conf.setJobName("WordLengthCount");
+        conf.setJobName("WordLength");
 
         FileInputFormat.addInputPath(conf, new Path(args[0]));
         FileOutputFormat.setOutputPath(conf, new Path(args[1]));

@@ -13,7 +13,7 @@ public class NGramMapper extends MapReduceBase implements Mapper<LongWritable, T
 
     @Override
     public void configure(JobConf conf) {
-        maxN = conf.getInt("ngram.max", 5);
+        maxN = conf.getInt("ngram.max", 5); // get the max N-gram value from the configuration
     }
 
     @Override
@@ -32,11 +32,11 @@ public class NGramMapper extends MapReduceBase implements Mapper<LongWritable, T
 
             for (int n = 2; n <= maxN; n++) {
                 if (i + n > words.length) break; // avoid IndexOutOfBounds error
-
                 sb.setLength(0); // reset the builder for each ngram
+
                 for (int j = 0; j < n; j++) {
                     if (j > 0) sb.append(' ');
-                    sb.append(words[i + j]); // add the next word
+                    sb.append(words[i + j]); // add the next word to the builder
                 }
                 ngramText.set(sb.toString());
                 output.collect(ngramText, one);

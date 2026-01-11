@@ -23,7 +23,7 @@ public class WordLengthMapper extends MapReduceBase implements Mapper<LongWritab
 
         for (int i = 0; i < words.length - 1; i++) {
             wordLength.set(words[i].length());
-            output.collect(wordLength, one);
+            output.collect(wordLength, one); // set the key to the word length and the value to one
         }
     }
 }

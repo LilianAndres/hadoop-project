@@ -22,11 +22,11 @@ public class TopLetterMapper extends MapReduceBase implements Mapper<LongWritabl
         String[] words = line.split("\\s+");
 
         for (String word : words) {
-            if (word.length() < 5 || word.length() > 9) continue;
+            if (word.length() < 5 || word.length() > 9) continue; // keep only the words that are longer than 4 letters and shorter than 10 letters
 
             for (char c : word.toCharArray()) {
                 letterKey.set(Character.toString(c));
-                output.collect(letterKey, one);
+                output.collect(letterKey, one); // set the key to the letter and the value to one
             }
         }
     }

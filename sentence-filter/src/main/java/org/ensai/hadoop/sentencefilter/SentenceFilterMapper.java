@@ -13,23 +13,23 @@ public class SentenceFilterMapper extends MapReduceBase implements Mapper<LongWr
 
     @Override
     public void configure(JobConf conf) {
-        targetWord = conf.get("sentencefilter.target").toLowerCase();
+        targetWord = conf.get("sentencefilter.target").toLowerCase(); // get the target word from the job configuration
     }
 
     @Override
     public void map(LongWritable key, Text value, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
 
-        String line = value.toString().trim();
+        String line = value.toString().trim(); // remove leading and trailing whitespaces
 
         if (line.isEmpty()) return;
 
-        String[] sentences = line.split("(?<=[.!?])\\s+");
+        String[] sentences = line.split("(?<=[.!?])\\s+"); // split the line into sentences
 
         for (String sentence : sentences) {
             String sentenceLower = sentence.toLowerCase();
             if (sentenceLower.contains(targetWord)) {
-                outKey.set(targetWord);
-                outValue.set(sentence.trim());
+                outKey.set(targetWord); // set the key to the target word so every pairs go to the same Reducer (avoid overhead)
+                outValue.set(sentence.trim()); // set the value to the sentence that contains the target word
                 output.collect(outKey, outValue);
             }
         }
