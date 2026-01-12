@@ -27,10 +27,10 @@ public class SentenceFilterDriver {
         conf.setMapperClass(SentenceFilterMapper.class);
 
         // The Reducer does not do anything here.
-        // The best option would have been to make this Job as Mapper-only Job
-        // conf.setNumReduceTasks(0);
-
-        conf.setReducerClass(SentenceFilterReducer.class); // keep it only for the project purpose
+        // The best option is then to make this Job a "mapper-only" Job
+        // This avoids using the same key for every pair or a unique key (e.g. line number) for each pair
+        // We avoid data skew and useless shuffling onto the reducer.
+        conf.setNumReduceTasks(0);
 
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(Text.class);
