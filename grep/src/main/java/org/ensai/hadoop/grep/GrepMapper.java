@@ -13,7 +13,7 @@ public class GrepMapper extends MapReduceBase implements Mapper<LongWritable, Te
 
     @Override
     public void configure(JobConf job) {
-        String regex = job.get("grep.pattern");
+        String regex = job.get("grep.pattern"); // get the pattern from the job configuration
         if (regex == null || regex.isEmpty()) {
             throw new RuntimeException("Parameter 'grep.pattern' must be provided");
         }
@@ -26,7 +26,7 @@ public class GrepMapper extends MapReduceBase implements Mapper<LongWritable, Te
         String line = value.toString();
 
         if (pattern.matcher(line).find()) {
-            output.collect(value, new Text(""));
+            output.collect(value, new Text("")); // emit the lines that match the pattern
         }
     }
 }

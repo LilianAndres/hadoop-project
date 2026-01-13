@@ -19,20 +19,14 @@ public class NextWordDriver {
         JobConf conf = new JobConf(NextWordDriver.class);
         conf.setJobName("NextWord");
 
+        FileInputFormat.setInputPaths(conf, new Path(inputPath));
+        FileOutputFormat.setOutputPath(conf, new Path(outputPath));
+
         conf.setMapperClass(NextWordMapper.class);
         conf.setReducerClass(NextWordReducer.class);
 
-        conf.setMapOutputKeyClass(Text.class);
-        conf.setMapOutputValueClass(Text.class);
-
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(Text.class);
-
-        conf.setInputFormat(TextInputFormat.class);
-        conf.setOutputFormat(TextOutputFormat.class);
-
-        FileInputFormat.setInputPaths(conf, new Path(inputPath));
-        FileOutputFormat.setOutputPath(conf, new Path(outputPath));
 
         JobClient.runJob(conf);
     }

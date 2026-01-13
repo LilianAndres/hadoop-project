@@ -22,9 +22,9 @@ public class NextWordMapper extends MapReduceBase implements Mapper<LongWritable
         String[] words = line.split("\\s+");
 
         for (int i = 0; i < words.length - 1; i++) {
-            currentWord.set(words[i]); // for each word...
-            nextWord.set(words[i + 1]); // ...emit the next word
-            output.collect(currentWord, nextWord);
+            currentWord.set(words[i]);
+            nextWord.set(words[i + 1]);
+            output.collect(currentWord, nextWord); // emit the next word for each word
         }
     }
 }

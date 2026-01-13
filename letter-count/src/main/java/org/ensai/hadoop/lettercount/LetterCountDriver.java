@@ -26,10 +26,6 @@ public class LetterCountDriver {
         conf.setOutputValueClass(IntWritable.class);
 
         JobClient.runJob(conf);
-
-        // Then, run sort something like -k2 -nr part-00000 | head -n $(echo "$(wc -l < part-00000)*0.02" | bc)
-        // Please see https://stackoverflow.com/questions/20583211/top-n-values-by-hadoop-map-reduce-code
-        // One might also consider the Job chaining approach (not really necessary here).
     }
 }
 

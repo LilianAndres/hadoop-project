@@ -26,7 +26,6 @@ public class SentenceFilterDriver {
 
         conf.setMapperClass(SentenceFilterMapper.class);
 
-        // The Reducer does not do anything here.
         // The best option is then to make this Job a "mapper-only" Job
         // This avoids using the same key for every pair or a unique key (e.g. line number) for each pair
         // We avoid data skew and useless shuffling onto the reducer.
