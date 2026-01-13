@@ -8,28 +8,31 @@ import org.apache.hadoop.mapred.*;
 public class NextWordDriver {
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 3) {
-            System.err.println("Usage: NextWordDriver <input> <output> <word>");
+        if (args.length != 2) {
+            System.err.println("Usage: NextWordDriver <input> <output>");
             System.exit(-1);
         }
 
-        String input = args[0];
-        String output = args[1];
-        String targetWord = args[2];
+        String inputPath = args[0];
+        String outputPath = args[1];
 
         JobConf conf = new JobConf(NextWordDriver.class);
-        conf.setJobName("NextWordDriver");
-
-        FileInputFormat.addInputPath(conf, new Path(input));
-        FileOutputFormat.setOutputPath(conf, new Path(output));
-
-        conf.set("nextword.target", targetWord); // set the target word in the job configuration
+        conf.setJobName("NextWord");
 
         conf.setMapperClass(NextWordMapper.class);
         conf.setReducerClass(NextWordReducer.class);
 
+        conf.setMapOutputKeyClass(Text.class);
+        conf.setMapOutputValueClass(Text.class);
+
         conf.setOutputKeyClass(Text.class);
-        conf.setOutputValueClass(IntWritable.class);
+        conf.setOutputValueClass(Text.class);
+
+        conf.setInputFormat(TextInputFormat.class);
+        conf.setOutputFormat(TextOutputFormat.class);
+
+        FileInputFormat.setInputPaths(conf, new Path(inputPath));
+        FileOutputFormat.setOutputPath(conf, new Path(outputPath));
 
         JobClient.runJob(conf);
     }

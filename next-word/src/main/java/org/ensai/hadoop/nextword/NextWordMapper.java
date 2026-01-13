@@ -5,19 +5,13 @@ import org.apache.hadoop.io.*;
 
 import java.io.IOException;
 
-public class NextWordMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
+public class NextWordMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, Text> {
 
-    private final IntWritable one = new IntWritable(1);
-    private final Text nextWordKey = new Text();
-    private String targetWord;
-
-    @Override
-    public void configure(JobConf conf) {
-        targetWord = conf.get("nextword.target").toLowerCase(); // get the target word from the job configuration
-    }
+    private final Text currentWord = new Text();
+    private final Text nextWord = new Text();
 
     @Override
-    public void map(LongWritable key, Text value, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {
+    public void map(LongWritable key, Text value, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
 
         String line = value.toString().toLowerCase()
                 .replaceAll("[^a-zA-Z\\s]", " ")
@@ -28,10 +22,9 @@ public class NextWordMapper extends MapReduceBase implements Mapper<LongWritable
         String[] words = line.split("\\s+");
 
         for (int i = 0; i < words.length - 1; i++) {
-            if (words[i].equals(targetWord)) {
-                nextWordKey.set(words[i + 1]); // set the key to the next word of the target word
-                output.collect(nextWordKey, one); // set the value to 1
-            }
+            currentWord.set(words[i]); // for each word...
+            nextWord.set(words[i + 1]); // ...emit the next word
+            output.collect(currentWord, nextWord);
         }
     }
 }
