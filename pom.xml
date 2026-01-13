@@ -16,6 +16,7 @@
         <module>next-word</module>
         <module>sentence-filter</module>
         <module>top-k</module>
+        <module>grep</module>
     </modules>
 
     <properties>
