@@ -7,13 +7,14 @@ Each application performs a different distributed data processing task to run on
 
 The following Hadoop jobs are included in this project:
 
-| Module | Description                                                 |
-|--------|-------------------------------------------------------------|
-| `ngram-count` | Count n-grams (sequences of N words) in large text datasets. |
-| `word-length-count` | Count words grouped by their length.                        |
-| `top-letter-count` | Count letters or characters from the input.                 |
-| `next-word` | Compute the next word predictions for a given word.         |
-| `sentence-filter` | Filter sentences including a given word.                    |
+| Module              | Description                                                                                                                                                              |
+|---------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ngram-count`       | Count n-grams (sequences of N words) in large text datasets.                                                                                                             |
+| `word-length-count` | Count words grouped by their length.                                                                                                                                     |
+| `letter-count`      | Count letters in words that are longer than 4 letters and shorter than 10 letters.                                                                                       |
+| `top-k`             | Compute the Top-K most frequent entities (e.g. words, letters, etc.). Entries must be given in the format (entity, count) so another job must be needed before this one. |
+| `next-word`         | Compute the next word predictions for a given word.                                                                                                                      |
+| `sentence-filter`   | Filter sentences including a given word.                                                                                                                                 |
 
 > Note that each module is a separate Maven module under this repository.
 
