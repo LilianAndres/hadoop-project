@@ -1,4 +1,4 @@
-package org.ensai.hadoop.topletter;
+package org.ensai.hadoop.lettercount;
 
 import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.io.*;
@@ -6,7 +6,7 @@ import org.apache.hadoop.io.*;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class TopLetterReducer extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
+public class LetterCountReducer extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
 
     @Override
     public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws IOException {

@@ -1,11 +1,11 @@
-package org.ensai.hadoop.topletter;
+package org.ensai.hadoop.lettercount;
 
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.*;
 
-public class TopLetterCountDriver {
+public class LetterCountDriver {
 
     public static void main(String[] args) throws Exception {
         if (args.length < 2) {
@@ -13,14 +13,14 @@ public class TopLetterCountDriver {
             System.exit(-1);
         }
 
-        JobConf conf = new JobConf(TopLetterCountDriver.class);
+        JobConf conf = new JobConf(LetterCountDriver.class);
         conf.setJobName("TopLetterCount");
 
         FileInputFormat.addInputPath(conf, new Path(args[0]));
         FileOutputFormat.setOutputPath(conf, new Path(args[1]));
 
-        conf.setMapperClass(TopLetterMapper.class);
-        conf.setReducerClass(TopLetterReducer.class);
+        conf.setMapperClass(LetterCountMapper.class);
+        conf.setReducerClass(LetterCountReducer.class);
 
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(IntWritable.class);

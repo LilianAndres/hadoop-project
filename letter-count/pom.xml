@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>top-letter-count</artifactId>
+    <artifactId>letter-count</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

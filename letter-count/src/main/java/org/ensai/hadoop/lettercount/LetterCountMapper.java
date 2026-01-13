@@ -1,11 +1,11 @@
-package org.ensai.hadoop.topletter;
+package org.ensai.hadoop.lettercount;
 
 import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.io.*;
 
 import java.io.IOException;
 
-public class TopLetterMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
+public class LetterCountMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
 
     private final static IntWritable one = new IntWritable(1);
     private final Text letterKey = new Text();

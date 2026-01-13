@@ -12,9 +12,10 @@
     <modules>
         <module>ngram-count</module>
         <module>word-length-count</module>
-        <module>top-letter-count</module>
+        <module>letter-count</module>
         <module>next-word</module>
         <module>sentence-filter</module>
+        <module>top-k</module>
     </modules>
 
     <properties>
