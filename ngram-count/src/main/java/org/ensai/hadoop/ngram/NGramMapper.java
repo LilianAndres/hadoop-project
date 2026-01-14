@@ -8,7 +8,6 @@ import java.io.IOException;
 public class NGramMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
 
     private final static IntWritable one = new IntWritable(1);
-    private final Text ngramText = new Text();
     private int maxN = 5;
 
     @Override
@@ -38,8 +37,7 @@ public class NGramMapper extends MapReduceBase implements Mapper<LongWritable, T
                     if (j > 0) sb.append(' ');
                     sb.append(words[i + j]); // add the next word to the builder
                 }
-                ngramText.set(sb.toString());
-                output.collect(ngramText, one);
+                output.collect(new Text(sb.toString()), one);
             }
         }
     }

@@ -6,8 +6,6 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.JobClient;
 import org.apache.hadoop.mapred.FileInputFormat;
 import org.apache.hadoop.mapred.FileOutputFormat;
-import org.apache.hadoop.mapred.TextInputFormat;
-import org.apache.hadoop.mapred.TextOutputFormat;
 
 public class TopKDriver {
 
@@ -25,24 +23,18 @@ public class TopKDriver {
         JobConf conf = new JobConf(TopKDriver.class);
         conf.setJobName("TopK");
 
+        FileInputFormat.setInputPaths(conf, new Path(inputPath));
+        FileOutputFormat.setOutputPath(conf, new Path(outputPath));
+
         conf.setInt("topk.count", topK);
 
         conf.setMapperClass(TopKMapper.class);
         conf.setReducerClass(TopKReducer.class);
 
-        conf.setMapOutputKeyClass(Text.class);
-        conf.setMapOutputValueClass(Text.class);
-
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(Text.class);
 
-        conf.setInputFormat(TextInputFormat.class);
-        conf.setOutputFormat(TextOutputFormat.class);
-
         conf.setNumReduceTasks(1); // make sure everything goes to the same unique reducer
-
-        FileInputFormat.setInputPaths(conf, new Path(inputPath));
-        FileOutputFormat.setOutputPath(conf, new Path(outputPath));
 
         JobClient.runJob(conf);
     }

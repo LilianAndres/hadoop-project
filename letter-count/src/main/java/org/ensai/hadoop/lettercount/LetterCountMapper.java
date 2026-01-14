@@ -25,7 +25,7 @@ public class LetterCountMapper extends MapReduceBase implements Mapper<LongWrita
             if (word.length() < 5 || word.length() > 9) continue; // keep only the words that are longer than 4 letters and shorter than 10 letters
 
             for (char c : word.toCharArray()) {
-                letterKey.set(Character.toString(c));
+                letterKey.set(Character.toString(c).toLowerCase());
                 output.collect(letterKey, one); // set the key to the letter and the value to one
             }
         }

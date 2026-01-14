@@ -20,6 +20,9 @@ public class GrepDriver {
         JobConf conf = new JobConf(GrepDriver.class);
         conf.setJobName("Grep");
 
+        FileInputFormat.setInputPaths(conf, new Path(inputPath));
+        FileOutputFormat.setOutputPath(conf, new Path(outputPath));
+
         // Pass regex pattern to mapper
         conf.set("grep.pattern", regex);
 
@@ -28,14 +31,8 @@ public class GrepDriver {
         conf.setOutputKeyClass(Text.class);
         conf.setOutputValueClass(Text.class);
 
-        conf.setInputFormat(TextInputFormat.class);
-        conf.setOutputFormat(TextOutputFormat.class);
-
         // Mapper-only job (otherwise an identity reducer would have been used)
         conf.setNumReduceTasks(0);
-
-        FileInputFormat.setInputPaths(conf, new Path(inputPath));
-        FileOutputFormat.setOutputPath(conf, new Path(outputPath));
 
         JobClient.runJob(conf);
     }
